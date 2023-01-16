@@ -175,12 +175,12 @@ void Tree::Fruit::sweeten(int water)
 
 Tree::~Tree()
 {
-    std::cout << "Tree \n";
+    std::cout << "Destroying Tree \n";
 }
 
 Tree::Fruit::~Fruit()
 {
-    std::cout << "Fruit \n";
+    std::cout << "Destroying Fruit \n";
 }
 /*
  copied UDT 2:
@@ -286,12 +286,12 @@ void PersonTwo::Eye::blink(float dust)
 
 PersonTwo::~PersonTwo()
 {
-    std::cout << "PersonTwo \n";
+    std::cout << "Destroying PersonTwo \n";
 }
 
 PersonTwo::Eye::~Eye()
 {
-    std::cout << "Eye \n";
+    std::cout << "Destroying Eye \n";
 }
 /*
  copied UDT 3:
@@ -360,7 +360,7 @@ void Computer::runFizzBuzz(int max)
 
 Computer::~Computer()
 {
-    std::cout << "Computer \n";
+    std::cout << "Destroying Computer \n";
 }
 
 /*
