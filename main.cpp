@@ -76,7 +76,7 @@ namespace Example
 */
 
 
-/*
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  copied UDT 1:
  */
 #include <iostream>
@@ -104,6 +104,7 @@ struct Tree
         void fallFromTree();
         void inspireTheoryOfGravity();
         void sweeten(int water);
+        void ripen(int time);
     };
 
     void grow(int water);
@@ -126,8 +127,8 @@ void Tree::grow(int water)
     std::cout << "All is well in the shade of the apple tree" << std::endl;
     for(int i = 0; i < water; ++i)
     {
-        height += 0.1f;
-        numberOfBranches += 3;
+        this->height += 0.1f;
+        this->numberOfBranches += 3;
     }
 }
 
@@ -178,6 +179,19 @@ void Tree::Fruit::sweeten(int water)
     std::cout << "The fruit has " << sweetness << " units of sweetness! \n";
 }
 
+void Tree::Fruit::ripen(int time)
+{
+    if(time <= 0)
+    {
+        this->color = "Green";
+    }
+    else
+    {
+        this->color = "Red";
+    }
+    std::cout << "The fruit's color is " << this->color << std::endl;
+}
+
 Tree::~Tree()
 {
     std::cout << "Destroying Tree \n";
@@ -187,7 +201,7 @@ Tree::Fruit::~Fruit()
 {
     std::cout << "Destroying Fruit \n";
 }
-/*
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  copied UDT 2:
  */
 struct PersonTwo
@@ -207,7 +221,7 @@ struct PersonTwo
         bool needsGlasses = {false};
         bool hasCataracts = {false};
         std::string typeOfColorBlindness = {""};
-        std::string vision = {""};
+        std::string vision = {"20/20"};
 
         Eye();
         ~Eye();
@@ -216,12 +230,14 @@ struct PersonTwo
         bool close(bool awake = true);
         void see();
         void blink(float dust);
+        void lookAtSun();
     };
 
     bool run(int speed = 7);
     int jump(int crouch = 9, int energy = 4);
     bool playPiano(bool memoryRecal = true, int nerves = 11);
     void printFace(int numOfHeads);
+    void celebrateBirthday();
 };
 
 PersonTwo::PersonTwo()
@@ -258,6 +274,11 @@ void PersonTwo::printFace(int numOfHeads)
     std::cout << "\n";
 }
 
+void PersonTwo::celebrateBirthday()
+{
+    this->age += 1;
+}
+
 bool PersonTwo::Eye::open(bool awake)
 {
     return awake ? true : false;
@@ -289,6 +310,11 @@ void PersonTwo::Eye::blink(float dust)
      
 }
 
+void PersonTwo::Eye::lookAtSun()
+{
+    this->needsGlasses = true;
+}
+
 PersonTwo::~PersonTwo()
 {
     std::cout << "Destroying PersonTwo \n";
@@ -298,7 +324,7 @@ PersonTwo::Eye::~Eye()
 {
     std::cout << "Destroying Eye \n";
 }
-/*
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  copied UDT 3:
  */
 struct Computer
@@ -317,6 +343,8 @@ struct Computer
     bool save(std::string fileName, bool clickSaveButton);
     void runApp(std::string something);
     void runFizzBuzz(int max);
+    void initializeComputer();
+    void upgradeRAM();
 };
 
 Computer::Computer()
@@ -363,12 +391,28 @@ void Computer::runFizzBuzz(int max)
     }
 }
 
+void Computer::initializeComputer()
+{
+    this->storageAmount = 0.0f;
+    this->RAMAmount = 0;
+    this->manufacturer = "";
+    this->screenSize = 0.0f;
+    this->amountUSBPort = 0;
+    std::cout << "The computer is now initialized and has " << this->RAMAmount << "GB of memory \n\n";
+}
+
+void Computer::upgradeRAM()
+{
+    this->RAMAmount *= 2;
+    std::cout << "Memory has been upgraded and is now " << this->RAMAmount << "GB \n";
+}
+
 Computer::~Computer()
 {
     std::cout << "Destroying Computer \n";
 }
 
-/*
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  new UDT 4:
  with 2 member functions
  */
@@ -397,7 +441,7 @@ void Room::setUpComputer()
     knot.manufacturer = "Apple";
     knot.screenSize = 13.1f;
     knot.amountUSBPort = 2;
-    std::cout << "The " << knot.manufacturer << " coputer is now set up. \n\n";
+    std::cout << "The " << knot.manufacturer << " computer is now set up. \n\n";
 }
 
 void Room::runShortcut()
@@ -411,7 +455,7 @@ Room::~Room()
 }
 
 /*
- new UDT 5:
+ new UDT 5: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  with 2 member functions
  */
 struct Luggage
@@ -467,12 +511,15 @@ int main()
     tree.produceFruit();
     tree.photosynthesize();
     std::cout << "The tree is " << tree.height << " feet tall and has " << tree.numberOfBranches << " branches! \n";
-
+    
+        
     Tree::Fruit fruit;
     fruit.produceSeeds();
     fruit.fallFromTree();
     fruit.inspireTheoryOfGravity();
     fruit.sweeten(345);
+    fruit.ripen(0);
+    fruit.ripen(4);
     std::cout << "Does the apple have more than 4 seeds? " << (fruit.numberOfSeeds > 4 ? "Yes, it has " : "No, it only has ") << fruit.numberOfSeeds << (fruit.numberOfSeeds == 1 ? " seed. \n\n" : " seeds. \n\n");
 
     PersonTwo personTwo;
@@ -480,12 +527,17 @@ int main()
     personTwo.jump();
     personTwo.playPiano();
     personTwo.printFace(3);
+    personTwo.celebrateBirthday();
+    std::cout << "The person just celebrated a birtday and is now " << personTwo.age << std::endl;
     
     PersonTwo::Eye eye;
     eye.open();
     eye.close();
     eye.see();
     eye.blink(3.4f);
+    std::cout << "Before lookAtSun() eye.needsGlasses = " << eye.needsGlasses << std::endl;
+    eye.lookAtSun();
+    std::cout << "After lookAtSun() eye.needsGlasses = " << eye.needsGlasses << std::endl;
     std::cout << "Is the person awake? Will they play the Piano? " << (eye.open() ? "Yes" : "No") << " and " << (eye.open() && personTwo.playPiano() ? "Yes" : "No") << "\n\n";
     
     Computer computer;
@@ -498,10 +550,12 @@ int main()
     Room room;
     room.setUpComputer();
     room.runShortcut();
+    room.knot.upgradeRAM();
 
     Luggage luggage;
     luggage.activateAirplaneMode();
     luggage.eatApple();
+    luggage.knot.initializeComputer();
     
     std::cout << "good to go!" << std::endl;
 }
